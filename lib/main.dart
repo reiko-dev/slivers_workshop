@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:slivers_workshop/data.dart';
 
@@ -22,12 +23,32 @@ class HorizonsApp extends StatelessWidget {
         scrollBehavior: const ConstantScrollBehavior(),
         title: 'Horizons Weather',
         home: Scaffold(
-          appBar: AppBar(
-            title: Text('Horizons'),
-            backgroundColor: Colors.teal[800],
-          ),
           body: CustomScrollView(
             slivers: [
+              SliverAppBar(
+                pinned: true,
+                centerTitle: true,
+                backgroundColor: Colors.teal[800],
+                expandedHeight: 200,
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  title: Text('HORIZONS'),
+                  background: DecoratedBox(
+                    position: DecorationPosition.foreground,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                        Colors.teal[800]!,
+                        Colors.transparent,
+                      ], begin: Alignment.bottomCenter, end: Alignment.center),
+                    ),
+                    child: Image.network(
+                      headerImage,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  centerTitle: true,
+                ),
+              ),
               WeeklyForecastList(),
             ],
           ),
@@ -36,6 +57,7 @@ class HorizonsApp extends StatelessWidget {
 }
 
 class WeeklyForecastList extends StatelessWidget {
+  const WeeklyForecastList();
   @override
   Widget build(BuildContext context) {
     final DateTime currentDate = DateTime.now();
